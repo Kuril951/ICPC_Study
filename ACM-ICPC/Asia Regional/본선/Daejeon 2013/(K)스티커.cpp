@@ -16,12 +16,12 @@ int sticker(bool way, int idx)
 
 	int &ret = dp[way][idx];
 
-	if (ret)
+	if (ret != -1)
 		return ret;
 
-	// 바로옆 대각선 스티커, 현재 선택한 스티커의 두칸 옆 스티커
-	ret = max(max(sticker(!way, idx + 1), sticker(way, idx + 2)), sticker(!way, idx + 2)) + num[way][idx];
-	
+	// 바로옆 대각선 스티커, 현재 선택한 스티커의 두칸 옆대각선 스티커
+	ret = max(sticker(!way, idx + 1), sticker(!way, idx + 2)) + num[way][idx];
+
 	return ret;
 }
 
@@ -31,10 +31,10 @@ int main()
 
 	scanf("%d", &T);
 
-	while (T--)	
+	while (T--)
 	{
 		scanf("%d", &n);
-		memset(dp, 0, sizeof(dp));
+		memset(dp, -1, sizeof(dp));
 		for (int i = 0; i < 2; i++)
 			for (int j = 0; j < n; j++)
 				scanf("%d", &num[i][j]);

@@ -1,60 +1,39 @@
 #include<iostream>
 
-#define ll long long
-
 using namespace std;
 
-ll nextNum(ll num)
-{
-	ll tmp = num, cnt = 10, res;
-
-	while ((tmp / 10) % 10 <= tmp % 10) {
-		cnt *= 10;
-		tmp /= 10;
-	}
-
-	tmp /= 10;
-
-	while ((tmp / 10) % 10 >= tmp % 10) {
-		cnt *= 10;
-		tmp /= 10;
-	}
-
-	res = ((num / cnt) * cnt) - 1;
-
-	return res;
-}
 
 int main()
 {
 	int T;
 
-	cin >> T;
-	for (int i = 1; i <= T; i++) {
-		ll res, num;
-		bool flg = true;
+	scanf("%d", &T);
 
-		cin >> num;
-		//  N ~ 1 순으로 확인
-		while (flg)	{
-			ll tmp = num--;
-			//  오름차순인지 확인
-			while (true) {
-				if (tmp == 0) {
-					res = num + 1;
-					flg = false;
-					break;
-				}
-				// 오름 차순이 아닐경우
-				if (tmp % 10 < (tmp / 10) % 10) {
-					num = nextNum(num + 1);
-					break;
-				}
-				tmp /= 10;
+	for (int t = 1; t <= T; t++)
+	{
+		long long N, res;
+		scanf("%lld", &N);
+
+		while (1)
+		{
+			int cnt = 1;
+			res = N;
+			// n자리수 <= n+1자리수
+			while (res && (res / 10) % 10 <= res % 10) {
+				res /= 10;
+				cnt++;
 			}
+
+			if (!res)
+				break;
+
+			res = res / 10 - 1;
+			for(int i=0; i<cnt; i++)
+				res = res * 10 + 9;
+			N = res;
 		}
 
-		cout << "Case #" << i << ": " << res << "\n";
+		printf("Case #%d: %lld\n", t, N);
 	}
 
 	return 0;

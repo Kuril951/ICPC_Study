@@ -14,7 +14,7 @@ void trace(int curr, int isPrevSelected)
     if(isPrevSelected)
         for(auto next : tree[curr])
             trace(next, 0);
-    else { // 이전 노드 사용
+    else { // 이전 노드 사용 안함
         for(auto next : tree[curr]){
             if(dp[next][1] < dp[next][0]){  //현재 노드 사용 안함
                 isUsed.push_back(next);
